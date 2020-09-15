@@ -10,13 +10,25 @@ public class PlayerController : MonoBehaviour
     private Vector3 direction;
     //sets how fast the player moves forward and side to side
     public float forwardSpeed, turnSpeed, jumpForce, gravity;
+    public int lane = 0, laneDistance = 6;
+    public GameObject[] target;
     // Start is called before the first frame update
     void Start()
     {
         controller = GetComponent<CharacterController>();
         forwardSpeed = 4;
     }
-
+    private void ChangeLanes(bool left)
+    {
+        if (left && lane < 2)
+        {
+            lane += 1;
+        }
+        else if (!left && lane > 0)
+        {
+            lane -= 1;
+        }
+    }
     // Update is called once per frame
     void Update()
     {
@@ -47,7 +59,17 @@ public class PlayerController : MonoBehaviour
             //sets direction forward so player has to move forward
             direction.z = forwardSpeed;
             //sets direction so player can move to the right and left
-            direction.x = Input.GetAxis("Horizontal") * turnSpeed;
+            if (Input.GetKeyDown(KeyCode.LeftArrow) && controller.isGrounded)
+            {
+                ChangeLanes(true);
+            }
+            if (Input.GetKeyDown(KeyCode.RightArrow) && controller.isGrounded)
+            {
+                ChangeLanes(false);
+            }
+           
+            
+            
         }
         else
         {
@@ -66,5 +88,16 @@ public class PlayerController : MonoBehaviour
     {
         //moves player towards direction
         controller.Move(direction * Time.fixedDeltaTime);
+        Vector3 targetPosition = transform.position.z * transform.forward + transform.position.y * transform.up;
+        if (lane == 0)
+        {
+            targetPosition += Vector3.right * laneDistance;
+        }
+        else if (lane == 2)
+        {
+            targetPosition += Vector3.left * laneDistance;
+        }
+        transform.position = Vector3.Lerp(transform.position, targetPosition, 8 * Time.deltaTime);
+        
     }
 }
