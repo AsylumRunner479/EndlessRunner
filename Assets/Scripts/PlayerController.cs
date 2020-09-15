@@ -20,32 +20,42 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //increase movement speed as the game continues
-        forwardSpeed += Time.deltaTime/10;
-        turnSpeed += Time.deltaTime/20;
-        //uses input to make the player activate jump function if they are on the ground
-        if (Input.GetKeyDown(KeyCode.UpArrow) && controller.isGrounded)
+        if(!Claire.DamageManager.isDead)
         {
-            gravity = 20f;
-            Jump(); 
-        }
-        if (Input.GetKey(KeyCode.UpArrow) && !controller.isGrounded)
-        {
-            //slows gravity when gliding
-            direction.y -= gravity * Time.deltaTime / 2;
-            gravity += Time.deltaTime;
+            //increase movement speed as the game continues
+            forwardSpeed += Time.deltaTime / 10;
+            turnSpeed += Time.deltaTime / 20;
+            //uses input to make the player activate jump function if they are on the ground
+            if (Input.GetKeyDown(KeyCode.UpArrow) && controller.isGrounded)
+            {
+                gravity = 20f;
+                Jump();
+            }
+            if (Input.GetKey(KeyCode.UpArrow) && !controller.isGrounded)
+            {
+                //slows gravity when gliding
+                direction.y -= gravity * Time.deltaTime / 2;
+                gravity += Time.deltaTime;
+            }
+            else
+            {
+                //changes direction to move player down
+                direction.y -= gravity * Time.deltaTime;
+                gravity += Time.deltaTime;
+            }
+
+            //sets direction forward so player has to move forward
+            direction.z = forwardSpeed;
+            //sets direction so player can move to the right and left
+            direction.x = Input.GetAxis("Horizontal") * turnSpeed;
         }
         else
         {
-            //changes direction to move player down
-            direction.y -= gravity * Time.deltaTime;
-            gravity += Time.deltaTime;
+            forwardSpeed = 0;
+            turnSpeed = 0;
+            direction = Vector3.zero;
         }
-        
-        //sets direction forward so player has to move forward
-        direction.z = forwardSpeed;
-        //sets direction so player can move to the right and left
-        direction.x = Input.GetAxis("Horizontal") * turnSpeed;
+       
     }
     private void Jump()
     {

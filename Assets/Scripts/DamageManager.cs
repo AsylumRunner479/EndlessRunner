@@ -9,10 +9,10 @@ namespace Claire
         #region variables
         [Header("Life")]
         private int health = 3;
-        static bool isDead = false;
+       public static bool isDead = false;
         [Header("Canvas")]
         [SerializeField] Image pannel;
-        private float waitTime = 10f;
+        public float waitTime = 10f;
         #endregion
         #region blue voids
         private void Start()
@@ -21,12 +21,12 @@ namespace Claire
         }
         private void Update()
         {
-#if UNITY_EDITOR
+        #if UNITY_EDITOR
             if (Input.GetKey(KeyCode.J))
             {
                 Death();
             }
-#endif
+        #endif
         }
         private void OnCollisionEnter(Collision collision)
         {
@@ -39,6 +39,7 @@ namespace Claire
             {
                 Debug.Log("Prop");
                 Damage(1);
+                collision.gameObject.SetActive(false);
             }
         }
         #endregion
@@ -54,8 +55,8 @@ namespace Claire
         public void Death()
         {
             isDead = true;
-            Time.timeScale = 0;
             pannel.color = Color.Lerp(Color.clear, Color.black, waitTime);
+            
         }
         #endregion
     }

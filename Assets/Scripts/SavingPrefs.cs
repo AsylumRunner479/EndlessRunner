@@ -45,15 +45,14 @@ namespace Claire
         private void FirstLoad()
         {
             //default variables for first time playing
-            numberM.name = "Mick";
             numberM.currentScore = 0;
         }
         public void Save()
         {   //if the player's score is higher than the saved score
-            if (numberM.currentScore > PlayerPrefs.GetInt("Score"))
+            if ((int)transform.position.z > PlayerPrefs.GetInt("Score"))
             {   // save that as new high score
                 PlayerPrefs.SetString("Name", numberM.playerName);
-                PlayerPrefs.SetInt("Score", numberM.currentScore);
+                PlayerPrefs.SetInt("Score", (int)transform.position.z);
                 PlayerPrefs.Save();
             }
         }

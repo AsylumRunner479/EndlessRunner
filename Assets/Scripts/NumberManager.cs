@@ -13,7 +13,6 @@ namespace Claire
         public int currentScore;
         public string playerName;
         public float now;
-        public float coolDown = 0.5f;
         [Header("Health")]
         public int maxHealth = 3;
         public int currentHealth;
@@ -30,22 +29,12 @@ namespace Claire
         }
         private void Update()
         {
+            currentScore = (int)transform.position.z;
             cScore.text = currentScore.ToString();
         }
         void FixedUpdate()
         {
-            if (!isDead)
-            {
-                if (now + coolDown < Time.time)
-                {
-                    currentScore++;
-                    now = Time.time;
-                }
-                if (currentScore >= highScore)
-                {
-
-                }
-            }
+          
         }
         private void OnTriggerEnter(Collider other)
         {
