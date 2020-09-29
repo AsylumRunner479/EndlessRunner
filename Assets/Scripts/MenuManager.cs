@@ -1,14 +1,11 @@
-﻿using UnityEditor;
+﻿using EditorApplication = UnityEditor.EditorApplication;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using SceneManager = UnityEngine.SceneManagement.SceneManager;
 namespace Claire
 {
     public class MenuManager : MonoBehaviour
     {
-        public void ChangeScene(int sceneIndex)
-        {
-            SceneManager.LoadScene(sceneIndex);
-        }
+        public void ChangeScene(int sceneIndex) => SceneManager.LoadScene(sceneIndex);
         public void QuitGame()
         {
         #if UNITY_EDITOR

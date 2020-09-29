@@ -20,9 +20,8 @@ namespace Claire
         [Header("User Interface")]
         public Text cScore;
         #endregion
-        void Start()
+        private void Start()
         {
-            Debug.Log("What?");
             currentHealth = maxHealth;
             currentHealth = 0;
             now = Time.time;
@@ -31,10 +30,6 @@ namespace Claire
         {
             currentScore = (int)transform.position.z;
             cScore.text = currentScore.ToString();
-        }
-        void FixedUpdate()
-        {
-          
         }
         private void OnTriggerEnter(Collider other)
         {

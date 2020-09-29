@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Serializable = System.SerializableAttribute;
 using UnityEngine;
 namespace Claire
 {
@@ -7,8 +6,7 @@ namespace Claire
     {
         #region variables
         public NumberManager numberM;
-        [System.Serializable]
-        public struct Player
+        [Serializable] public struct Player
         {
             public string name;
             public int score;
@@ -59,3 +57,17 @@ namespace Claire
         #endregion
     }
 }
+/* Main Menu
+ * Save Score
+ * High Score
+ * -----
+ * Collision - On Collision, remove 1HP
+ * -----
+ * Death - When HP = 0
+ * New HS Name - if new HS allow Text Input, else Retry/Return to menu
+ * Score Gain - if was new HS and name input filled then hit Save then load the Retry/Reload to menu
+ * -----
+ * Respawn/Restart Game (Reload scene) - this is the Retry/Return menu
+ * -----
+ * Animation Controller
+ */
